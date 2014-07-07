@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/ereflect/db" VERSION="20140219" COMMENT="XMLDB file for Moodle mod/ereflect"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+    <TABLE NAME="ereflect" COMMENT="template plugin">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>   
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/> 
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/> 
+        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false"/> 
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/> 
+        <FIELD NAME="preparationtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="email_notification" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/> 
+	<FIELD NAME="usetrafficlight" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/> 
+	<FIELD NAME="usetrafficimages" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>       						
+	<FIELD NAME="questions_per_page" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="99" SEQUENCE="false"/>       								
+	<FIELD NAME="sequential_order" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>       								
+        <FIELD NAME="completion_message" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+	<FIELD NAME="include_preptime_in_report" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+	<FIELD NAME="include_mark_in_linegraph" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false" DEFAULT="INPROGRESS"/> 		
+        <FIELD NAME="opendate" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Timestamp to open access"/>
+        <FIELD NAME="closedate" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Timestamp to close access on"/>        
+	<FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for feedback"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="ereflect_questions" COMMENT="all questions">
+      <FIELDS>
+       	<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+	<FIELD NAME="ereflect_id" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key reference to the ereflect that was attempted."/>
+        <FIELD NAME="question_name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/> 		
+        <FIELD NAME="question_text" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/> 				
+	<FIELD NAME="open_question" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Open Question, yes (1) or no (0)"/>		
+	<FIELD NAME="no_of_options" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of options per question - must be set to 3 if following traffic light system, otherwise anything greater than 1"/>		
+	<FIELD NAME="order_by" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT=""/> 
+	<FIELD NAME="copied_eq_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Copied ereflect_questions id - only populated when created as a copy from an original"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>		
+        <FIELD NAME="feedback_message" TYPE="text" NOTNULL="false" SEQUENCE="false"/>        
+      </FIELDS>
+      <KEYS>
+	<KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for Ereflect Questions"/>
+	<KEY NAME="ereflect_id" TYPE="foreign" FIELDS="ereflect_id" REFTABLE="ereflect" REFFIELDS="id" COMMENT="The instance of ereflect this submission belongs to."/>
+      </KEYS>
+    </TABLE>	
+    <TABLE NAME="ereflect_options" COMMENT="all options">
+      <FIELDS>
+       	<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+	<FIELD NAME="ereflect_question_id" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key reference to the ereflect question that was entered."/>
+        <FIELD NAME="option_answer" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/> 		
+        <FIELD NAME="option_feedback" TYPE="text" NOTNULL="true" SEQUENCE="false"/>         
+	<FIELD NAME="showicon" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Show Logo, 0=No, 1=Yes"/>	
+        <FIELD NAME="icon_name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false"/> 						        
+        <FIELD NAME="icon_colour" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false"/> 						
+	<FIELD NAME="order_by" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT=""/> 
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>				
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>			  
+      </FIELDS>
+      <KEYS>
+	<KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for Ereflect Options"/>
+	<KEY NAME="ereflect_question_id" TYPE="foreign" FIELDS="ereflect_question_id" REFTABLE="ereflect_questions" REFFIELDS="id" COMMENT="The instance of ereflect_questions this submission belongs to."/>
+      </KEYS>
+    </TABLE>      
+    <TABLE NAME="ereflect_answers" COMMENT="all answers">
+      <FIELDS>
+       	<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+        <FIELD NAME="user_id" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The user id associated with the ereflect answers"/>		
+	<FIELD NAME="ereflect_id" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key reference to the ereflect that was attempted."/>		
+	<FIELD NAME="ereflect_question_id" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key reference to the ereflect question that was answered against."/>
+	<FIELD NAME="ereflect_option_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="The answer associated with a closed question. Foreign key reference to the ereflect options that was chosen."/>		
+	<FIELD NAME="open_question_ind" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Open Question, yes (1) or no (0)"/>				
+        <FIELD NAME="open_answer" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="The answer associated with an open question i.e. no options associated with it"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>				
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>			  
+         </FIELDS>
+      <KEYS>
+	<KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for Ereflect Answers"/>
+	<KEY NAME="user_id" TYPE="foreign" FIELDS="user_id" REFTABLE="mdl_user" REFFIELDS="id" COMMENT="The instance of mdl_user this submission belongs to."/>				
+	<KEY NAME="ereflect_id" TYPE="foreign" FIELDS="ereflect_id" REFTABLE="ereflect" REFFIELDS="id" COMMENT="The instance of ereflect this submission belongs to."/>		
+	<KEY NAME="ereflect_question_id" TYPE="foreign" FIELDS="ereflect_question_id" REFTABLE="ereflect_questions" REFFIELDS="id" COMMENT="The instance of ereflect_questions this submission belongs to."/>
+	<KEY NAME="ereflect_option_id" TYPE="foreign" FIELDS="ereflect_question_id" REFTABLE="ereflect_questions" REFFIELDS="id" COMMENT="The instance of ereflect_questions this submission belongs to."/>
+      </KEYS>	  
+    </TABLE>      
+    <TABLE NAME="ereflect_user_response" COMMENT="all users who have at least started an ereflect questionnaire">
+      <FIELDS>
+       	<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>         
+        <FIELD NAME="user_id" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The user id associated with the ereflect questionnaire"/>		
+	<FIELD NAME="ereflect_id" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key reference to the ereflect that was attempted."/>		
+        <FIELD NAME="status" TYPE="char" LENGTH="12" NOTNULL="true" SEQUENCE="false" DEFAULT="PARTIAL" COMMENT="Status of questionnaire for particular user e.g. PARTIAL, COMPLETED"/>
+	<FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="The grade that the user achieved for the assignment associated with the ereflect questionnaire"/>
+	<FIELD NAME="assignment_time" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="The amount of time the user spent on the assignment associated with the ereflect questionnaire"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>				
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>			  
+      </FIELDS>
+      <KEYS>
+	<KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for Ereflect Answers"/>
+	<KEY NAME="user_id" TYPE="foreign" FIELDS="user_id" REFTABLE="mdl_user" REFFIELDS="id" COMMENT="The instance of mdl_user this submission belongs to."/>				        
+	<KEY NAME="ereflect_id" TYPE="foreign" FIELDS="ereflect_id" REFTABLE="ereflect" REFFIELDS="id" COMMENT="The instance of ereflect this submission belongs to."/>		
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>      
+    </TABLE>      
+  </TABLES>
+</XMLDB>
