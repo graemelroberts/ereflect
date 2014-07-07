@@ -209,7 +209,7 @@ class mod_ereflect_mod_form extends moodleform_mod {
         $features->groups           = false;  
         $features->groupings        = false;  
         $features->groupmembersonly = false; 
-        $features->idnumber 		= false;
+        $features->idnumber 	    = false;
 
         $this->standard_coursemodule_elements($features);
 		

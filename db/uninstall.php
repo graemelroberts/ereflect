@@ -18,7 +18,7 @@
 /** 
  * @package   mod_ereflect
  * @copyright 2013 G.Roberts Cardiff Met
- * @license   
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
 
 /**

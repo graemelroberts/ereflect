@@ -41,7 +41,7 @@
  * The variable name for the capability definitions array is $capabilities
  *
  * @package    mod_ereflect
- * @copyright  2011 Your Name
+ * @copyright  2014 Graeme Roberts Cardiff Metropolitan
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -50,20 +50,11 @@ defined('MOODLE_INTERNAL') || die();
 $capabilities = array(
 
 /*'mod/ereflect:myaddinstance' => array(        
-										'captype' => 'write',        
-										'contextlevel' => CONTEXT_SYSTEM,        
-										'archetypes' => array(  'user' => CAP_ALLOW        ),         
-										'clonepermissionsfrom' => 'moodle/my:manageblocks'    ),  
-										
-'mod/ereflect:addinstance' => array(    'riskbitmask' => RISK_SPAM | RISK_XSS,
-				 						 'captype' => 'write',
-										 'contextlevel' => CONTEXT_BLOCK,
-										 'archetypes' => array(      'student' => CAP_ALLOW,
-																	'teacher' => CAP_ALLOW,
-																	'editingteacher' => CAP_ALLOW,
-																	'manager' => CAP_ALLOW        ),							
-										'clonepermissionsfrom' => 'moodle/site:manageblocks'    
-	),*/
+                                'captype' => 'write',        
+                                'contextlevel' => CONTEXT_SYSTEM,        
+                                'archetypes' => array(  'user' => CAP_ALLOW        ),         
+                                'clonepermissionsfrom' => 'moodle/my:manageblocks'    ),  
+                                */
 	
 	// Ability to see that the questionnaire exists, and the basic information about it.
 	
